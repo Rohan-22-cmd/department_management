@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Department List</title>
+    <style>
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif; /* Use a readable font */
+        }
+
+        /* Center the table */
+        table {
+            margin: 0 auto; /* Center the table horizontally */
+            border-collapse: collapse; /* Remove extra space between table cells */
+            width: 80%; /* Set the width of the table */
+        }
+
+        /* Button style */
+        .btn-create {
+            background-color: green; /* Green background */
+            color: white; /* White text */
+            padding: 10px 20px; /* Padding around the button */
+            text-decoration: none; /* Remove underline from link */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 16px; /* Font size */
+            display: inline-block; /* Make it behave like a button */
+            margin-bottom: 20px; /* Space below the button */
+            margin-left: 20px; /* Add space from the left */
+        }
+        .btn-create:hover {
+            background-color: darkgreen; /* Dark green when hovered */
+        }
+
+        /* Edit button style */
+        .btn-edit {
+            background-color: yellow; /* Yellow background */
+            color: black; /* Black text */
+            padding: 5px 10px; /* Padding around the button */
+            text-decoration: none; /* Remove underline from link */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 14px; /* Font size */
+            display: inline-block; /* Make it behave like a button */
+        }
+        .btn-edit:hover {
+            background-color: gold; /* Gold when hovered */
+        }
+
+        /* Delete button style */
+        .btn-delete {
+            background-color: red; /* Red background */
+            color: white; /* White text */
+            padding: 5px 10px; /* Padding around the button */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 14px; /* Font size */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+        .btn-delete:hover {
+            background-color: darkred; /* Dark red when hovered */
+        }
+    </style>
+</head>
+<body>
+   
+    <a href="{% url 'department_create' %}" class="btn-create">Create Department</a>
+    <table border="1">
+        <tr>
+            <th>Sr. No</th>
+            <th>Department Name</th>
+            <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for department in departments %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ department.name }}</td>
+            <td>{{ department.description }}</td>
+           
+            <td><a href="{% url 'department_update' department.dept_id %}" class="btn-edit">Edit</a></td>
+            <td>
+                <form action="{% url 'department_delete' department.dept_id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" class="btn-delete">  <!-- Apply red color to delete button -->
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

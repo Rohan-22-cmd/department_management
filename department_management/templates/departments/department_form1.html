@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Department</title>
+</head>
+<body>
+    <h1>Update Department</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label>Department Name:</label> {{ form.name }} <br><br>
+        <label>Department Description:</label> {{ form.description }} <br><br>
+        <input type="submit" value="Update">
+    </form>
+   
+</body>
+</html>
